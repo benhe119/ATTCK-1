@@ -1,0 +1,1 @@
+Credential Access描述在网络或主机中获取用户或主机凭据的方法。
