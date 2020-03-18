@@ -47,7 +47,7 @@ REG.exe ADD HKEY_CURRENT_USER\Environment /v UserInitMprLogonScript /t REG_SZ /d
 
 同时UserInitMprLogonScript的值是可以直接设置为命令的。
 
-![1574328195643](Lateral Movement.assets/1574328195643.png)
+![1574328195643](Lateral%20Movement.assets/1574328195643.png)
 
 ## Pass the Hash-T1075
 
@@ -55,18 +55,18 @@ Pass the Hash是指通过已经有的HASH值来进行hash传递获得目标主�
 
 例如在其他主机中想要访问0m0a1.com域中的主机dc.0m0a1.com,那么可以使用mimikatz进行PTH的攻击。
 
-![1574328241859](Lateral Movement.assets/1574328241859.png)
+![1574328241859](Lateral%20Movement.assets/1574328241859.png)
 
 ```
 mimikatz#privilege::debug
 mimikatz#sekurlsa::pth /user:administrator /domain:0m0a1.com /ntlm: 4cb55ea6471d29ccbb2ce4cf00271fe3
 ```
 
-![1574328257831](Lateral Movement.assets/1574328257831.png)
+![1574328257831](Lateral%20Movement.assets/1574328257831.png)
 
 同样还有Wmiexec等其他工具也可以实现相同的功能：
 
-![1574328359528](Lateral Movement.assets/1574328359528.png)
+![1574328359528](Lateral%20Movement.assets/1574328359528.png)
 
 像crackmapexec工具还可以批量进行试探。
 
@@ -95,17 +95,17 @@ lsadump::dcsync /domain:0m0a1.com /user:krbtgt
 
 这里会向域控请求krbtgt账户的hash值
 
-![1574328478292](Lateral Movement.assets/1574328478292.png)
+![1574328478292](Lateral%20Movement.assets/1574328478292.png)
 
 然后抓到ktbtgt的NTLM hash之后之后生成黄金票据（TGT 由ktbtgt HASH加密sessionkey-as和TimeStamp），这个过程是不与TGS进行KDC进行交互的
 
-![1574328487038](Lateral Movement.assets/1574328487038.png)
+![1574328487038](Lateral%20Movement.assets/1574328487038.png)
 
-![1574328503885](Lateral Movement.assets/1574328503885.png)
+![1574328503885](Lateral%20Movement.assets/1574328503885.png)
 
 这样的方式导入的票据20分钟之内生效，如果过期再次导入就可以，只要krbtgt的账号不变，通常情况下是和域控的账密一样，但是不会随域控管理员密码改变而改变
 
-![1574328510920](Lateral Movement.assets/1574328510920.png)
+![1574328510920](Lateral%20Movement.assets/1574328510920.png)
 
 ## Remote Desktop Protocol-T1076
 
@@ -113,15 +113,15 @@ lsadump::dcsync /domain:0m0a1.com /user:krbtgt
 
 想要理解RDP的劫持，首先通过RDP登陆一台主机，在退出之后查看windows任务管理器可以看到之前的记录
 
-![1574328537700](Lateral Movement.assets/1574328537700.png)
+![1574328537700](Lateral%20Movement.assets/1574328537700.png)
 
 也可以通过query user在命令行查看
 
-![1574328545759](Lateral Movement.assets/1574328545759.png)
+![1574328545759](Lateral%20Movement.assets/1574328545759.png)
 
 这时可以通过tscon命令切换到已经断开连接的用户界面，Tscon的作用就是将用户会话连接到远程桌面会话。
 
-![1574328559009](Lateral Movement.assets/1574328559009.png)
+![1574328559009](Lateral%20Movement.assets/1574328559009.png)
 
 此时有两种可能：
 
@@ -129,17 +129,17 @@ lsadump::dcsync /domain:0m0a1.com /user:krbtgt
 
 使用psexec64.exe –s cmd创建一个system权限的cmd窗口。
 
-![1574328575986](Lateral Movement.assets/1574328575986.png)
+![1574328575986](Lateral%20Movement.assets/1574328575986.png)
 
-![1574328584828](Lateral Movement.assets/1574328584828.png)
+![1574328584828](Lateral%20Movement.assets/1574328584828.png)
 
 2、 没有本地system权限，需要使用密码才能跳转
 
-![1574328595004](Lateral Movement.assets/1574328595004.png)
+![1574328595004](Lateral%20Movement.assets/1574328595004.png)
 
 命令执行成功之后会直接从administrator的桌面跳转到session 2 也就是testwin7的桌面
 
-![1574328603868](Lateral Movement.assets/1574328603868.png)
+![1574328603868](Lateral%20Movement.assets/1574328603868.png)
 
 ## Remote File Copy-T1105
 
@@ -169,7 +169,7 @@ https://www.freebuf.com/sectool/107242.html
 
 Webroot是ASP.NET WEB应用程序的根目录，攻击者通过Webroot或者是Web内容目录开放网络文件共享将恶意内容（比如一个webshell）添加到内部可访问的网站，然后使用Web浏览器访问上传的webshell使服务器执行恶意内容。
 
-![1574332242527](Lateral Movement.assets/1574332242527.png)
+![1574332242527](Lateral%20Movement.assets/1574332242527.png)
 
 但是实际上C盘对外部开放的情况还是比较小的
 
@@ -183,7 +183,7 @@ Screen命令可以创建后台运行的会话
 
 这里是通过root通过su – testuser和screen –r 4772.pts-4.kali跳转到了testuser创建的screen会话中。但是从root到testuser的意义是什么？
 
-![1574332297450](Lateral Movement.assets/1574332297450.png)
+![1574332297450](Lateral%20Movement.assets/1574332297450.png)
 
 ## Taint Shared Content-T1080
 
@@ -209,19 +209,19 @@ WINRM是WS-Management协议的Microsoft实现，该协议的目的是为跨多�
 Invoke-Command -ComputerName exchange2012 -ScriptBlock {ipconfig}
 ```
 
-![1574333040602](Lateral Movement.assets/1574333040602.png)
+![1574333040602](Lateral%20Movement.assets/1574333040602.png)
 
 ```powershell
 Invoke-Command -ComputerName exchange2012 -ScriptBlock {whoami}
 ```
 
-![1574333045835](Lateral Movement.assets/1574333045835.png)
+![1574333045835](Lateral%20Movement.assets/1574333045835.png)
 
 通过抓包可以看到走的主要是HTTP协议，命令以及执行结果的传输全部进行了加密:
 
-![1574333076975](Lateral Movement.assets/1574333076975.png)
+![1574333076975](Lateral%20Movement.assets/1574333076975.png)
 
-![1574333082062](Lateral Movement.assets/1574333082062.png)
+![1574333082062](Lateral%20Movement.assets/1574333082062.png)
 
 同时mimikatz还支持使用WINRM进行远程获取LSASS中存储的hash值:
 
@@ -230,7 +230,7 @@ Import-Module .\Invoke-Mimikatz.ps1
 Invoke-Mimikatz -ComputerName exchange2012
 ```
 
-![1574333109782](Lateral Movement.assets/1574333109782.png)
+![1574333109782](Lateral%20Movement.assets/1574333109782.png)
 
 同时也可以用于持久化，将原本没有开启WINRM的主机使用下列命令开启:
 
@@ -238,7 +238,7 @@ Invoke-Mimikatz -ComputerName exchange2012
 Enable-PSRemoting –Force
 ```
 
-![1574333138165](Lateral Movement.assets/1574333138165.png)
+![1574333138165](Lateral%20Movement.assets/1574333138165.png)
 
 在一些情况下可能无法通过WinRM连接，就是说明需要做一些其他的配置:
 
@@ -247,4 +247,3 @@ winrm quickconfig
 winrm set winrm/config/Client @{AllowUnencrypted = "true"}
 Set-Item WSMan:localhost\client\trustedhosts -value *
 ```
-
