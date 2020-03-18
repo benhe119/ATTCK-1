@@ -1,9 +1,11 @@
-# ATT&CK技术探索
+# ATT&CK技术点
 
-这里包含ATT&CK中的企业技术中的攻防技术。
-
+记录了ATT&CK Enterprise分类中的攻防技术。
 https://attack.mitre.org/techniques/enterprise/
 
-现在已经复现了凭据和横向渗透两个部分，后面会整理成PDF
-
-后续的计划是提权和执行
+# 技术细节
+[Credential Access](https://github.com/ambitionxm/ATTCK/blob/master/Credential%20Access.md)
+[Execution](https://github.com/ambitionxm/ATTCK/blob/master/Execution.md)
+[Lateral Movement](https://github.com/ambitionxm/ATTCK/blob/master/Lateral%20Movement.md)
+[Persistence](https://github.com/ambitionxm/ATTCK/blob/master/Persistence.md)
+[Privilege Escalation](https://github.com/ambitionxm/ATTCK/blob/master/Privilege%20Escalation.md)
